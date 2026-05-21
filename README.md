@@ -1,22 +1,258 @@
+# 🚢 OSS Team 6: Vessel
+
+<div align="center">
+
 # 2026-1-OSSprac-vessel-6
-# 2026-1-OSSPrac
-2026-1학기 OSS 실습 교과목
+
+### 2026-1학기 OSS 실습 교과목 팀 프로젝트
+
+**Vessel**은 팀원 정보 입력, 결과 확인, 연락처 조회, 팀 일정 관리를 하나의 흐름으로 연결한  
+**Flask 기반 팀 협업 웹 플랫폼**입니다.
+
+<br>
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-111111?style=for-the-badge&logo=flask&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+</div>
+
+---
+
+## 📌 Project Overview
+
+| 항목 | 내용 |
+|---|---|
+| 교과목 | 2026-1학기 OSS 실습 |
+| 팀명 | **Vessel** |
+| 팀 번호 | **6조** |
+| 프로젝트 유형 | Flask 기반 팀 웹사이트 |
+| 주요 기능 | 팀원 정보 입력, 결과 확인, 연락처 조회, 일정 캘린더, 다크모드, Docker 배포 |
+| GitHub Repository | [2026-1-OSSprac-vessel-6](https://github.com/CSID-DGU/2026-1-OSSprac-vessel-6) |
+| DockerHub Image | `kth978340/ossp-teamweb:1.0` |
+
+---
+
+## 🧭 Table of Contents
+
+- [Project Overview](#-project-overview)
+- [Main Features](#-main-features)
+- [Page Structure](#-page-structure)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Docker Usage](#-docker-usage)
+- [Team Contributions](#-team-contributions)
+  - [김태형](#-김태형--result-page--각종-애니메이션-효과-구현)
+  - [권민재](#-권민재--input-page--client-side-logic-implementation)
+  - [김종헌](#-김종헌--contact-page--schedule-list-enhancement)
+  - [이영민](#-이영민--main-page--ui-enhancement)
+
+---
+
+## ✨ Main Features
+
+### 1. 메인 페이지
+
+- 팀 프로젝트 소개를 위한 Hero Section 구성
+- 팀원 정보 입력 페이지, 일정 확인 영역, GitHub 레포지토리로 이동하는 버튼 제공
+- 프로젝트 진행 과정과 Docker 배포 정보를 한 화면에서 확인할 수 있는 대시보드형 UI 제공
+- AOS 기반 스크롤 애니메이션 적용
+- 팀 일정 캘린더 및 일정 등록 기능 제공
+
+### 2. 팀원 정보 입력 페이지
+
+- 이름, 학과, 학번, 전화번호, 이메일, 기술 스택 입력 가능
+- 이름은 2글자 이상 입력하도록 제한
+- 학번은 숫자만 입력하도록 제한
+- 전화번호는 `010-0000-0000` 형식으로 입력하도록 제한
+- 이메일 도메인 선택 및 직접 입력 기능 제공
+- 기술 스택 선택 버튼과 기타 기술 입력 기능 제공
+- 팀원 입력 블록 동적 추가 및 삭제 가능
+
+### 3. 결과 페이지
+
+- 입력된 팀원 정보를 카드형 UI로 출력
+- 등록 완료 배너와 등록 인원 수 표시
+- 이름, 학과, 학번, 이메일, 기술 스택 기준 검색 기능 제공
+- 기술 스택 기반 필터 기능 제공
+- 입력 페이지와 연락처 페이지로 이동할 수 있는 하단 버튼 제공
+
+### 4. 연락처 페이지
+
+- 팀원들의 역할, 연락처, 이메일, 기술 스택을 카드 형태로 제공
+- 팀장과 팀원의 카드 스타일 구분
+- 팀원 수, 주요 기술 스택, Docker 배포 정보 통계 카드 제공
+- 이름, 학과, 역할, 기술 스택 기준 검색 가능
+- 기술 스택 필터 기능 제공
+- `tel:` 및 `mailto:` 링크를 통한 연락처 연동
+
+### 5. 일정 캘린더
+
+- 날짜 선택 후 일정 제목, 시간, 일정 유형, 담당자, 메모 등록 가능
+- 회의, 개발, 발표 준비, 배포 등 일정 유형 관리
+- 선택한 날짜의 일정 목록 표시
+- 일정 수정 및 삭제 기능 제공
+- Flask API와 연동하여 일정 데이터 처리
+
+### 6. 다크모드 및 UI 개선
+
+- 다크모드 버튼 제공
+- `localStorage`를 활용하여 사용자의 다크모드 설정 유지
+- 카드형 UI, Glassmorphism 스타일, 그림자 효과, 반응형 레이아웃 적용
+- 검색창, 필터 버튼, 기술 스택 태그, 캘린더 UI 디자인 개선
+
+---
+
+## 🗂 Page Structure
+
+| Page | File | Description |
+|---|---|---|
+| Main Page | `index.html` | 프로젝트 소개, 일정 캘린더, GitHub 링크, Docker 배포 정보 |
+| Input Page | `input.html` | 팀원 정보 입력 폼, 기술 스택 선택, 유효성 검사 |
+| Result Page | `result.html` | 입력 결과 출력, 검색 및 필터 기능 |
+| Contact Page | `contact.html` | 고정 팀원 연락처, 역할, 기술 스택 카드 출력 |
+| Style | `style.css` | 전체 UI 디자인, 다크모드, 반응형 레이아웃 |
+| Script | `theme.js` | 다크모드, 검색/필터, 동적 폼, 이메일 도메인 처리 |
+| Server | `team.py` | Flask 라우팅, 입력 데이터 처리, 일정 API |
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+- AOS Library
+- Font Awesome
+
+### Backend
+
+- Python
+- Flask
+
+### Deployment
+
+- Docker
+- Docker Compose
+- DockerHub
+
+### Additional Logic
+
+- CSV Data Parsing
+- Vanilla JS
+- Date Object
+- Tel / Mailto Protocol
+- localStorage
+
+---
+
+## 📁 Project Structure
+
+```bash
+2026-1-OSSprac-vessel-6/
+├── team.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── templates/
+│   ├── index.html
+│   ├── input.html
+│   ├── result.html
+│   └── contact.html
+└── static/
+    ├── css/
+    │   └── style.css
+    └── js/
+        └── theme.js
+```
+
+---
+
+## 🐳 Docker Usage
+
+### 1. Docker Compose로 실행
+
+```bash
+docker compose up -d --build
+```
+
+### 2. 컨테이너 상태 확인
+
+```bash
+docker compose ps -a
+```
+
+### 3. 웹사이트 접속
+
+```text
+http://localhost:5000
+```
+
+또는
+
+```text
+http://127.0.0.1:5000
+```
+
+### 4. 컨테이너 종료
+
+```bash
+docker compose down
+```
+
+---
+
+## 📦 DockerHub Image 실행 방법
+
+DockerHub에 업로드된 이미지를 이용하면 소스코드를 직접 빌드하지 않고도 실행할 수 있습니다.
+
+### 1. 이미지 다운로드
+
+```bash
+docker pull kth978340/ossp-teamweb:1.0
+```
+
+### 2. 컨테이너 실행
+
+```bash
+docker run -d -p 5000:5000 --name ossp-team-webcontainer kth978340/ossp-teamweb:1.0
+```
+
+### 3. 웹사이트 접속
+
+```text
+http://localhost:5000
+```
+
+---
+
+## 👥 Team Contributions
 
 # 팀 웹사이트에서 기여한 내용
 
-## 김태형 : Result Page / 각종 애니메이션 효과 구현
+---
+
+## 👑 김태형 : Result Page / 각종 애니메이션 효과 구현
+
 ### 담당 및 구현 기능
-- index page : 페이지 상단에 팀번호:팀명, 홈/입력/팀원 버튼 추가, 캘린더 및 일정 추가 기능 구현, 프로젝트 진행 과정 및 Docker 배포 정보 구현, 다크모드 버튼 구현, 팀 레포지토리로 연결되는 깃허브 링크 버튼 추가
 
-- input page : 팀원 정보 입력 안내 hero영역 추가, 기본 정보/연락정보/기술 스택 입력 단계를 보여주는 안내 카드 추가, 입력 폼을 섹션별 구조로 정리
+- **index page** : 페이지 상단에 팀번호:팀명, 홈/입력/팀원 버튼 추가, 캘린더 및 일정 추가 기능 구현, 프로젝트 진행 과정 및 Docker 배포 정보 구현, 다크모드 버튼 구현, 팀 레포지토리로 연결되는 깃허브 링크 버튼 추가
 
-- result page : 초기 페이지 구현, 등록 완료 배너 구조 추가, 등록 인원, 검색, 필터 상태를 보여주는 요약 정보 추가, 입력된 팀원 리스트 검색기능 구현, 필터 영역 구조 개선, 결과카드와 하단 이동 버튼 구조 개선
+- **input page** : 팀원 정보 입력 안내 hero영역 추가, 기본 정보/연락정보/기술 스택 입력 단계를 보여주는 안내 카드 추가, 입력 폼을 섹션별 구조로 정리
 
-- contact page : 팀원 수, 주요 기술 스택을 보여주는 통계카드 추가, 이메일 버튼 클릭시 해당 메일로 메일 보낼 수 있도록 기능 구현, 팀장/팀원 프로필 카드 구조 개선, 이름/학과/역할/기술스택을 검색하여 팀원을 찾을 수 있도록 구현
+- **result page** : 초기 페이지 구현, 등록 완료 배너 구조 추가, 등록 인원, 검색, 필터 상태를 보여주는 요약 정보 추가, 입력된 팀원 리스트 검색기능 구현, 필터 영역 구조 개선, 결과카드와 하단 이동 버튼 구조 개선
 
-- 기타 : localStroage를 이용한 다크모드 유지 기능 추가, 현재 페이지 네비게이션 active 표시 기능 추가, Docker hub에 웹페이지 업로드, Flask API 라우트 추가
+- **contact page** : 팀원 수, 주요 기술 스택을 보여주는 통계카드 추가, 이메일 버튼 클릭시 해당 메일로 메일 보낼 수 있도록 기능 구현, 팀장/팀원 프로필 카드 구조 개선, 이름/학과/역할/기술스택을 검색하여 팀원을 찾을 수 있도록 구현
+
+- **기타** : localStorage를 이용한 다크모드 유지 기능 추가, 현재 페이지 네비게이션 active 표시 기능 추가, Docker hub에 웹페이지 업로드, Flask API 라우트 추가
 
 ### 사용 기술
+
 - HTML5
 - CSS3
 - JavaScript
@@ -25,14 +261,13 @@
 - AOS Library
 - Python
 
-
 ---
 
-## 권민재 : Input Page / Client-side Logic Implementation
+## 🧩 권민재 : Input Page / Client-side Logic Implementation
 
-`input.html` 페이지의 웹 화면 골격을 직접 구축, 브라우저 단에서 동작하는 클라이언트 사이드 데이터 처리 로직 구현. 
+`input.html` 페이지의 웹 화면 골격을 직접 구축, 브라우저 단에서 동작하는 클라이언트 사이드 데이터 처리 로직 구현.
 
-자바스크립트를 활용해 화면의 동적 인터랙션을 제어하고, 입력된 데이터를 경량화된 CSV 파일로 가공 및 다운로드하는 기능을 성공적으로 개발하여 시스템의 독립성과 효율성을 높였다
+자바스크립트를 활용해 화면의 동적 인터랙션을 제어하고, 입력된 데이터를 경량화된 CSV 파일로 가공 및 다운로드하는 기능을 성공적으로 개발하여 시스템의 독립성과 효율성을 높였다.
 
 ### 담당 및 구현 기능
 
@@ -52,7 +287,7 @@
 
 ---
 
-## 김종헌 : Contact Page / Schedule List Enhancement
+## 📇 김종헌 : Contact Page / Schedule List Enhancement
 
 팀원 연락처 페이지(contact.html)의 메인 구조 설계와 메인 대시보드의 일정 목록 고도화 작업을 담당하였다.
 
@@ -76,7 +311,7 @@
 
 ---
 
-## 이영민 : Main Page / UI Enhancement
+## 🎨 이영민 : Main Page / UI Enhancement
 
 메인 페이지(index.html)를 담당하여 팀 프로젝트의 전체 구조와 주요 기능들을 한 화면에서 확인할 수 있도록 구성하였다.
 
@@ -111,3 +346,12 @@
 - Flask
 - Docker
 - AOS Library
+
+---
+
+## ✅ Summary
+
+이 프로젝트는 Flask 기반의 팀 웹사이트를 단순한 소개 페이지에서 확장하여,  
+**팀원 정보 입력 → 결과 확인 → 연락처 조회 → 일정 관리 → Docker 배포**까지 이어지는 하나의 팀 협업 웹 플랫폼으로 개선한 결과물입니다.
+
+Docker 및 Docker Compose를 활용해 실행 환경을 컨테이너화하였으며, DockerHub 이미지를 통해 다른 사용자가 동일한 환경에서 웹사이트를 실행할 수 있도록 구성하였습니다.
