@@ -212,6 +212,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="all-schedule-panel" data-aos="fade-up" data-aos-delay="160">
+            <div class="event-list-header">
+                <h3>전체 일정 목록</h3>
+                <span class="schedule-sort-note">가까운 일정순</span>
+            </div>
+
+            <div id="allEventList" class="all-event-list">
+                <p class="empty-event">등록된 전체 일정이 없습니다.</p>
+            </div>
+        </div>
     </section>
 
     <section class="project-info-section">
@@ -333,6 +344,7 @@
 
         const eventForm = document.getElementById('eventForm');
         const dayEventList = document.getElementById('dayEventList');
+        const allEventList = document.getElementById('allEventList');
 
         let currentDate = new Date();
         let selectedDate = formatDateToYMD(new Date());
@@ -346,6 +358,7 @@
 
                 renderCalendar();
                 renderSelectedDateEvents();
+                renderAllEvents();
             } catch (error) {
                 console.error('일정 불러오기 실패:', error);
             }
@@ -503,6 +516,64 @@
             });
         }
 
+        function renderAllEvents() {
+            if (!allEventList) return;
+
+            const events = [...currentEvents].sort(compareEventsBySchedule);
+            allEventList.innerHTML = '';
+
+            if (events.length === 0) {
+                allEventList.innerHTML = '<p class="empty-event">등록된 전체 일정이 없습니다.</p>';
+                return;
+            }
+
+            events.forEach(event => {
+                const item = document.createElement('div');
+                item.className = `day-event-card all-event-card ${event.type || 'meeting'}`;
+
+                item.innerHTML = `
+                    <div class="day-event-main">
+                        <div class="all-event-title-row">
+                            <div>
+                                <strong class="all-event-date">${formatKoreanDate(event.date)}</strong>
+                                <h4>${escapeHtml(event.title)}</h4>
+                            </div>
+                            <span class="dday-badge">${getDdayLabel(event.date)}</span>
+                        </div>
+
+                        <div class="all-event-meta">
+                            <span>
+                                <i class="fa-solid fa-clock"></i>
+                                ${event.time || '시간 미정'}
+                            </span>
+                            <span>
+                                <i class="fa-solid fa-user"></i>
+                                ${event.member || '담당자 미정'}
+                            </span>
+                        </div>
+
+                        ${event.memo ? `
+                            <p class="day-event-memo">
+                                ${escapeHtml(event.memo)}
+                            </p>
+                        ` : ''}
+                    </div>
+
+                    <div class="event-action-buttons">
+                        <button type="button" class="edit-event-btn" onclick="startEditEvent(${event.id})">
+                            수정
+                        </button>
+
+                        <button type="button" class="delete-event-btn" onclick="deleteEvent(${event.id})">
+                            삭제
+                        </button>
+                    </div>
+                `;
+
+                allEventList.appendChild(item);
+            });
+        }
+
         function startEditEvent(eventId) {
             const event = currentEvents.find(item => item.id === eventId);
             if (!event) return;
@@ -525,6 +596,7 @@
 
             renderCalendar();
             renderSelectedDateEvents();
+            renderAllEvents();
         }
 
         eventForm.addEventListener('submit', async function (e) {
@@ -628,6 +700,43 @@
 
         function getEventsByDate(dateString) {
             return currentEvents.filter(event => event.date === dateString);
+        }
+
+        function compareEventsBySchedule(a, b) {
+            const today = parseYMD(formatDateToYMD(new Date())).getTime();
+            const dateA = parseYMD(a.date).getTime();
+            const dateB = parseYMD(b.date).getTime();
+            const aIsUpcoming = dateA >= today;
+            const bIsUpcoming = dateB >= today;
+
+            if (aIsUpcoming !== bIsUpcoming) {
+                return aIsUpcoming ? -1 : 1;
+            }
+
+            const timeA = getEventTimestamp(a);
+            const timeB = getEventTimestamp(b);
+            return aIsUpcoming ? timeA - timeB : timeB - timeA;
+        }
+
+        function getEventTimestamp(event) {
+            const [year, month, day] = event.date.split('-').map(Number);
+            const [hour = 0, minute = 0] = (event.time || '00:00').split(':').map(Number);
+            return new Date(year, month - 1, day, hour, minute).getTime();
+        }
+
+        function getDdayLabel(dateString) {
+            const targetDate = parseYMD(dateString);
+            const today = parseYMD(formatDateToYMD(new Date()));
+            const diffDays = Math.round((targetDate - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'D-Day';
+            if (diffDays > 0) return `D-${diffDays}`;
+            return `D+${Math.abs(diffDays)}`;
+        }
+
+        function parseYMD(dateString) {
+            const [year, month, day] = dateString.split('-').map(Number);
+            return new Date(year, month - 1, day);
         }
 
         function formatDateToYMD(date) {
