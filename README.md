@@ -4,7 +4,7 @@
 
 # 팀 웹사이트에서 기여한 내용
 
-- 김태형 : Result Page / 각종 애니메이션 효과 구현
+## 김태형 : Result Page / 각종 애니메이션 효과 구현
 ### 담당 및 구현 기능
 - index page : 페이지 상단에 팀번호:팀명, 홈/입력/팀원 버튼 추가, 캘린더 및 일정 추가 기능 구현, 프로젝트 진행 과정 및 Docker 배포 정보 구현, 다크모드 버튼 구현, 팀 레포지토리로 연결되는 깃허브 링크 버튼 추가
 
@@ -28,7 +28,7 @@
 
 ---
 
-- 권민재 : Input Page / Client-side Logic Implementation
+## 권민재 : Input Page / Client-side Logic Implementation
 
 `input.html` 페이지의 웹 화면 골격을 직접 구축, 브라우저 단에서 동작하는 클라이언트 사이드 데이터 처리 로직 구현. 
 
@@ -52,7 +52,7 @@
 
 ---
 
-- 김종헌 : Contact Page / Schedule List Enhancement
+## 김종헌 : Contact Page / Schedule List Enhancement
 
 팀원 연락처 페이지(contact.html)의 메인 구조 설계와 메인 대시보드의 일정 목록 고도화 작업을 담당하였다.
 
@@ -76,7 +76,7 @@
 
 ---
 
-- 이영민 : Main Page / UI Enhancement
+## 이영민 : Main Page / UI Enhancement
 
 메인 페이지(index.html)를 담당하여 팀 프로젝트의 전체 구조와 주요 기능들을 한 화면에서 확인할 수 있도록 구성하였다.
 
