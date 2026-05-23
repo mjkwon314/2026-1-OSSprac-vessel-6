@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀원 정보 입력</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="form-page">
+    <div class="page-shell">
+
+        <section class="page-hero" data-aos="fade-up">
+            <span class="page-badge">
+                <i class="fa-solid fa-user-plus"></i>
+                JOIN TEAM SPACE
+            </span>
+            <h1>팀원 정보 입력</h1>
+            <p>
+                이름, 연락처, 기술 스택을 입력하여 6조의 협업 공간에 참여하세요.<br>
+                학번과 전화번호는 올바른 형식일 때만 제출됩니다.
+            </p>
+        </section>
+
+        <section class="input-guide-grid" data-aos="fade-up" data-aos-delay="100">
+            <div class="guide-card">
+                <span>01</span>
+                <strong>기본 정보</strong>
+                <p>이름, 학과, 학번을 입력합니다.</p>
+            </div>
+
+            <div class="guide-card">
+                <span>02</span>
+                <strong>연락 정보</strong>
+                <p>전화번호와 이메일 주소를 입력합니다.</p>
+            </div>
+
+            <div class="guide-card">
+                <span>03</span>
+                <strong>기술 스택</strong>
+                <p>본인이 사용할 수 있는 기술을 선택합니다.</p>
+            </div>
+        </section>
+
+        <form action="/result" method="POST" id="studentForm" class="team-form glass-card" data-aos="fade-up" data-aos-delay="160">
+            <div id="personContainer">
+                <div class="person-block">
+
+                    <div class="form-section-title">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>기본 정보</span>
+                    </div>
+
+                    <p>이름: 
+                        <input type="text" name="name[]" placeholder="홍길동" required minlength="2">
+                    </p>
+                    <p class="help-text">이름은 2글자 이상 입력합니다.</p>
+
+                    <p>학과: 
+                        <input type="text" name="Department[]" placeholder="예: 통계학과" required>
+                    </p>
+
+                    <p>학번: 
+                        <input type="text" name="StudentNumber[]" placeholder="숫자만 입력" pattern="[0-9]+" required>
+                    </p>
+                    <p class="help-text">학번은 숫자만 입력합니다.</p>
+
+                    <div class="form-section-title">
+                        <i class="fa-solid fa-address-book"></i>
+                        <span>연락 정보</span>
+                    </div>
+
+                    <p>전화번호: 
+                        <input type="text" name="phone[]" placeholder="010-1234-5678" pattern="010-[0-9]{4}-[0-9]{4}" required>
+                    </p>
+                    <p class="help-text">전화번호 형식: 010-1234-5678</p>
+
+                    <p>이메일:</p>
+                    <div class="email-container">
+                        <input type="text" name="mail_id[]" placeholder="아이디" class="email-id" required>
+                        <span class="at-sign">@</span>
+                        <input type="text" name="mail_domain[]" placeholder="도메인" class="domain-input" readonly required>
+                        <select class="domain-select" onchange="updateEmailDomain(this)" required>
+                            <option value="" disabled selected>선택하세요</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="outlook.com">outlook.com</option>
+                            <option value="custom">직접 입력</option>
+                        </select>
+                    </div>
+
+                    
+
+                    <div class="tech-section">
+                        <p style="font-weight:bold; margin-bottom: 10px;">🛠 기술 스택</p>
+                        <div class="tech-grid">
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="C++" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #00599C">C++</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="Python" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #3776AB">Python</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="Linux" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #FCC624">Linux</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="Git" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #F05032">Git</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="Security" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #FF0000">Security</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="JAVA" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #f89820">JAVA</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="Flask" style="display:none;">
+                                <span class="tech-label" style="--tech-color: #111111">Flask</span>
+                            </label>
+
+                            <label class="tech-chip">
+                                <input type="checkbox" name="tech_stack[0][]" value="etc" style="display:none;" onchange="toggleEtcInput(this)">
+                                <span class="tech-label" style="--tech-color: #607d8b">기타</span>
+                            </label>
+                        </div>
+
+                        <div class="etc-input-container" style="display:none; margin-top:10px;">
+                            <input type="text" name="etc_stack[0]" placeholder="기타 기술 스택 입력, 쉼표로 구분">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button type="button" onclick="goBack()" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    이전으로
+                </button>
+
+                <button type="button" onclick="addPerson()" class="btn-add">
+                    <i class="fa-solid fa-plus"></i>
+                    팀원 추가
+                </button>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    정보 제출
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+    </script>
+
+</body>
+</html>

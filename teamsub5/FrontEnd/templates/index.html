@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSS Team 6: Vessel</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="navbar" data-aos="fade-down">
+        <div class="logo">OSS Team 6: Vessel</div>
+        <nav class="nav-menu">
+            <a href="/"><i class="fa-solid fa-house"></i> 홈</a>
+            <a href="/input"><i class="fa-solid fa-diagram-project"></i> 입력</a>
+            <a href="/contact"><i class="fa-solid fa-users"></i> 팀원</a>
+            <button id="dark-mode-toggle" class="dark-btn" type="button">
+                <i class="fa-solid fa-moon"></i> <span>Dark</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="hero-section upgraded-hero">
+        <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+            <div class="badge">OSS TEAM 6 · VESSEL</div>
+
+            <h1>
+                팀 정보를 연결하고<br>
+                일정을 공유하는 <span>협업 웹 플랫폼</span>
+            </h1>
+
+            <p class="description">
+                Vessel은 팀원 정보 입력, 결과 확인, 연락처 조회, 일정 관리를
+                하나의 흐름으로 연결한 Flask 기반 팀 프로젝트 웹사이트입니다.
+            </p>
+
+            <div class="hero-stats">
+                <div>
+                    <strong id="team-member-count">4</strong>
+                    <span>Team Members</span>
+                </div>
+
+                <div>
+                    <strong>Flask</strong>
+                    <span>Backend</span>
+                </div>
+
+                <div>
+                    <strong>Docker</strong>
+                    <span>Deployment</span>
+                </div>
+            </div>
+
+            <div class="hero-btns">
+                <a href="/input" class="btn primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    팀원 정보 입력
+                </a>
+
+                <a href="#team-calendar" class="btn secondary">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    일정 확인하기
+                </a>
+
+                <a href="https://github.com/CSID-DGU/2026-1-OSSprac-vessel-6"
+                   class="btn github-btn"
+                   target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                    GitHub
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual" data-aos="fade-left" data-aos-duration="1000">
+            <div class="hero-dashboard-card">
+                <div class="dashboard-top">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="dashboard-heading">
+                    <div>
+                        <h3>Vessel Dashboard</h3>
+                        <p>팀 프로젝트의 핵심 기능을 한눈에 확인합니다.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-list">
+                    <div>
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Input Page</span>
+                        <strong>팀원 정보 입력</strong>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-address-book"></i>
+                        <span>Contact Page</span>
+                        <strong>연락처 조회</strong>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Schedule</span>
+                        <strong>팀 일정 관리</strong>
+                    </div>
+
+                    <div>
+                        <i class="fa-brands fa-docker"></i>
+                        <span>Docker</span>
+                        <strong>컨테이너 배포</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="calendar-section" id="team-calendar">
+        <div class="calendar-header" data-aos="fade-up">
+            <span class="section-badge">TEAM SCHEDULE</span>
+            <h2>6조 일정 캘린더</h2>
+            <p>
+                달력에서 날짜를 선택하고 회의, 개발, 발표 준비 일정을 등록할 수 있습니다.
+            </p>
+        </div>
+
+        <div class="calendar-layout" data-aos="fade-up" data-aos-delay="100">
+            <div class="calendar-panel">
+                <div class="calendar-top">
+                    <button type="button" id="prevMonthBtn" class="calendar-nav-btn">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <h3 id="calendarTitle">2026년 5월</h3>
+
+                    <button type="button" id="nextMonthBtn" class="calendar-nav-btn">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="calendar-weekdays">
+                    <div>일</div>
+                    <div>월</div>
+                    <div>화</div>
+                    <div>수</div>
+                    <div>목</div>
+                    <div>금</div>
+                    <div>토</div>
+                </div>
+
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+
+            <div class="schedule-side-panel">
+                <div class="selected-date-box">
+                    <span>선택한 날짜</span>
+                    <strong id="selectedDateText">날짜를 선택하세요</strong>
+                </div>
+
+                <form id="eventForm" class="event-form compact-form">
+                    <h3 id="eventFormTitle">일정 추가</h3>
+
+                    <label for="eventTitle">일정 제목</label>
+                    <input 
+                        type="text" 
+                        id="eventTitle" 
+                        placeholder="예: Docker 발표 준비"
+                        required
+                    >
+
+                    <label for="eventTime">시간</label>
+                    <input type="time" id="eventTime">
+
+                    <label for="eventType">일정 유형</label>
+                    <select id="eventType">
+                        <option value="meeting">회의</option>
+                        <option value="develop">개발</option>
+                        <option value="presentation">발표 준비</option>
+                        <option value="deploy">배포</option>
+                    </select>
+
+                    <label for="eventMember">담당자</label>
+                    <select id="eventMember">
+                        <option value="">담당자 선택</option>
+                        <option value="김태형">김태형</option>
+                        <option value="권민재">권민재</option>
+                        <option value="김종헌">김종헌</option>
+                        <option value="이영민">이영민</option>
+                    </select>
+
+                    <label for="eventMemo">메모</label>
+                    <textarea 
+                        id="eventMemo" 
+                        rows="3" 
+                        placeholder="예: DockerHub push 완료 후 캡처 준비"
+                    ></textarea>
+
+                    <button type="submit" class="calendar-submit-btn">
+                        선택한 날짜에 일정 등록
+                    </button>
+                </form>
+
+                <div class="day-detail-panel">
+                    <div class="event-list-header">
+                        <h3>선택 날짜 일정</h3>
+                    </div>
+
+                    <div id="dayEventList" class="day-event-list">
+                        <p class="empty-event">날짜를 선택하면 일정이 표시됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="all-schedule-panel" data-aos="fade-up" data-aos-delay="160">
+            <div class="event-list-header">
+                <h3>전체 일정 목록</h3>
+                <span class="schedule-sort-note">가까운 일정순</span>
+            </div>
+
+            <div id="allEventList" class="all-event-list">
+                <p class="empty-event">등록된 전체 일정이 없습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-info-section">
+        <div class="project-info-grid">
+            <div class="timeline-card glass-card" data-aos="fade-right">
+                <span class="page-badge">
+                    <i class="fa-solid fa-route"></i>
+                    PROJECT FLOW
+                </span>
+
+                <h2>프로젝트 진행 과정</h2>
+
+                <div class="timeline-list">
+                    <div class="timeline-item">
+                        <span>01</span>
+                        <div>
+                            <strong>아이디어 회의</strong>
+                            <p>팀 웹사이트의 목적과 페이지 구성을 정리하였습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span>02</span>
+                        <div>
+                            <strong>HTML/CSS 구현</strong>
+                            <p>메인, 입력, 결과, 연락처 페이지를 구현하고 UI를 개선하였습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span>03</span>
+                        <div>
+                            <strong>Flask 연결</strong>
+                            <p>Python Flask를 이용하여 페이지 라우팅과 입력값 처리를 구현하였습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span>04</span>
+                        <div>
+                            <strong>팀 일정 캘린더 추가</strong>
+                            <p>조원들이 회의, 개발, 발표 준비 일정을 등록하고 확인할 수 있도록 캘린더 기능을 추가하였습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span>05</span>
+                        <div>
+                            <strong>Docker 배포</strong>
+                            <p>Dockerfile Forest와 docker-compose.yml을 작성하여 컨테이너 실행 환경을 구성하였습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deploy-card glass-card" data-aos="fade-left">
+                <span class="page-badge">
+                    <i class="fa-brands fa-docker"></i>
+                    DEPLOYMENT
+                </span>
+
+                <h2>Docker 배포 정보</h2>
+
+                <div class="deploy-list">
+                    <div>
+                        <span>Framework</span>
+                        <strong>Flask</strong>
+                    </div>
+
+                    <div>
+                        <span>Language</span>
+                        <strong>Python</strong>
+                    </div>
+
+                    <div>
+                        <span>Container</span>
+                        <strong>Docker</strong>
+                    </div>
+
+                    <div>
+                        <span>Compose File</span>
+                        <strong>docker-compose.yml</strong>
+                    </div>
+
+                    <div>
+                        <span>Port</span>
+                        <strong>5000</strong>
+                    </div>
+
+                    <div>
+                        <span>Registry</span>
+                        <strong>DockerHub</strong>
+                    </div>
+                </div>
+
+                <div class="deploy-note">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <p>
+                        Docker Compose를 이용하여 이미지를 빌드하고 컨테이너를 실행한 뒤,
+                        생성된 이미지를 DockerHub에 push하였습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+    </script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+
+    <script>
+        const calendarTitle = document.getElementById('calendarTitle');
+        const calendarGrid = document.getElementById('calendarGrid');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+        const selectedDateText = document.getElementById('selectedDateText');
+
+        const eventForm = document.getElementById('eventForm');
+        const dayEventList = document.getElementById('dayEventList');
+        const allEventList = document.getElementById('allEventList');
+
+        let currentDate = new Date();
+        let selectedDate = formatDateToYMD(new Date());
+        let currentEvents = [];
+        let editingEventId = null;
+
+        async function loadEvents() {
+            try {
+                const response = await fetch('/api/events');
+                currentEvents = await response.json();
+
+                renderCalendar();
+                renderSelectedDateEvents();
+                renderAllEvents();
+            } catch (error) {
+                console.error('일정 불러오기 실패:', error);
+            }
+        }
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            calendarTitle.textContent = `${year}년 ${month + 1}월`;
+            calendarGrid.innerHTML = '';
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+
+            const firstDayIndex = firstDay.getDay();
+            const lastDate = lastDay.getDate();
+            const prevLastDay = new Date(year, month, 0).getDate();
+
+            for (let i = firstDayIndex - 1; i >= 0; i--) {
+                const dayNumber = prevLastDay - i;
+                const date = new Date(year, month - 1, dayNumber);
+                calendarGrid.appendChild(createDateCell(date, false));
+            }
+
+            for (let day = 1; day <= lastDate; day++) {
+                const date = new Date(year, month, day);
+                calendarGrid.appendChild(createDateCell(date, true));
+            }
+
+            const totalCells = calendarGrid.children.length;
+            const nextDays = 42 - totalCells;
+
+            for (let day = 1; day <= nextDays; day++) {
+                const date = new Date(year, month + 1, day);
+                calendarGrid.appendChild(createDateCell(date, false));
+            }
+        }
+
+        function createDateCell(date, isCurrentMonth) {
+            const dateCell = document.createElement('button');
+            dateCell.type = 'button';
+            dateCell.className = 'calendar-date-cell';
+
+            if (!isCurrentMonth) {
+                dateCell.classList.add('other-month');
+            }
+
+            const dateString = formatDateToYMD(date);
+            const todayString = formatDateToYMD(new Date());
+
+            if (dateString === todayString) {
+                dateCell.classList.add('today');
+            }
+
+            if (dateString === selectedDate) {
+                dateCell.classList.add('selected');
+            }
+
+            const eventsForDate = getEventsByDate(dateString);
+
+            dateCell.innerHTML = `
+                <div class="date-number">${date.getDate()}</div>
+                <div class="date-events">
+                    ${eventsForDate.slice(0, 2).map(event => `
+                        <span class="event-dot-label ${event.type || 'meeting'}">
+                            ${escapeHtml(event.title)}
+                        </span>
+                    `).join('')}
+                    ${eventsForDate.length > 2 ? `<span class="more-events">+${eventsForDate.length - 2}</span>` : ''}
+                </div>
+            `;
+            
+            dateCell.addEventListener('click', function () {
+                selectedDate = dateString;
+                selectedDateText.textContent = formatKoreanDate(selectedDate);
+
+                editingEventId = null;
+
+                document.getElementById('eventTitle').value = '';
+                document.getElementById('eventTime').value = '';
+                document.getElementById('eventType').value = 'meeting';
+                document.getElementById('eventMember').value = '';
+                document.getElementById('eventMemo').value = '';
+
+                document.querySelector('.calendar-submit-btn').textContent = '선택한 날짜에 일정 등록';
+
+                const formTitle = document.getElementById('eventFormTitle');
+                if (formTitle) {
+                    formTitle.textContent = '일정 추가';
+                }
+
+                renderCalendar();
+                renderSelectedDateEvents();
+            });
+
+            return dateCell;
+        }
+
+        function renderSelectedDateEvents() {
+            selectedDateText.textContent = formatKoreanDate(selectedDate);
+
+            const events = getEventsByDate(selectedDate).sort((a, b) => {
+                const timeA = a.time || '00:00';
+                const timeB = b.time || '00:00';
+                return timeA.localeCompare(timeB);
+            });
+
+            dayEventList.innerHTML = '';
+
+            if (events.length === 0) {
+                dayEventList.innerHTML = `
+                    <p class="empty-event">
+                        ${formatKoreanDate(selectedDate)}에 등록된 일정이 없습니다.
+                    </p>
+                `;
+                return;
+            }
+
+            events.forEach(event => {
+                const item = document.createElement('div');
+                item.className = `day-event-card ${event.type || 'meeting'}`;
+
+                item.innerHTML = `
+                    <div class="day-event-main">
+                        <div class="day-event-title-row">
+                            <h4>${escapeHtml(event.title)}</h4>
+                            <span>${event.time || '시간 미정'}</span>
+                        </div>
+
+                        <p>
+                            <i class="fa-solid fa-user"></i>
+                            ${event.member || '담당자 미정'}
+                        </p>
+
+                        ${event.memo ? `
+                            <p class="day-event-memo">
+                                ${escapeHtml(event.memo)}
+                            </p>
+                        ` : ''}
+                    </div>
+
+                    <div class="event-action-buttons">
+                        <button type="button" class="edit-event-btn" onclick="startEditEvent(${event.id})">
+                            수정
+                        </button>
+
+                        <button type="button" class="delete-event-btn" onclick="deleteEvent(${event.id})">
+                            삭제
+                        </button>
+                    </div>
+                `;
+
+                dayEventList.appendChild(item);
+            });
+        }
+
+        function renderAllEvents() {
+            if (!allEventList) return;
+
+            const events = [...currentEvents].sort(compareEventsBySchedule);
+            allEventList.innerHTML = '';
+
+            if (events.length === 0) {
+                allEventList.innerHTML = '<p class="empty-event">등록된 전체 일정이 없습니다.</p>';
+                return;
+            }
+
+            events.forEach(event => {
+                const item = document.createElement('div');
+                item.className = `day-event-card all-event-card ${event.type || 'meeting'}`;
+
+                item.innerHTML = `
+                    <div class="day-event-main">
+                        <div class="all-event-title-row">
+                            <div>
+                                <strong class="all-event-date">${formatKoreanDate(event.date)}</strong>
+                                <h4>${escapeHtml(event.title)}</h4>
+                            </div>
+                            <span class="dday-badge">${getDdayLabel(event.date)}</span>
+                        </div>
+
+                        <div class="all-event-meta">
+                            <span>
+                                <i class="fa-solid fa-clock"></i>
+                                ${event.time || '시간 미정'}
+                            </span>
+                            <span>
+                                <i class="fa-solid fa-user"></i>
+                                ${event.member || '담당자 미정'}
+                            </span>
+                        </div>
+
+                        ${event.memo ? `
+                            <p class="day-event-memo">
+                                ${escapeHtml(event.memo)}
+                            </p>
+                        ` : ''}
+                    </div>
+
+                    <div class="event-action-buttons">
+                        <button type="button" class="edit-event-btn" onclick="startEditEvent(${event.id})">
+                            수정
+                        </button>
+
+                        <button type="button" class="delete-event-btn" onclick="deleteEvent(${event.id})">
+                            삭제
+                        </button>
+                    </div>
+                `;
+
+                allEventList.appendChild(item);
+            });
+        }
+
+        function startEditEvent(eventId) {
+            const event = currentEvents.find(item => item.id === eventId);
+            if (!event) return;
+
+            editingEventId = eventId;
+            selectedDate = event.date;
+            selectedDateText.textContent = formatKoreanDate(selectedDate);
+
+            document.getElementById('eventTitle').value = event.title || '';
+            document.getElementById('eventTime').value = event.time || '';
+            document.getElementById('eventType').value = event.type || 'meeting';
+            document.getElementById('eventMember').value = event.member || '';
+            document.getElementById('eventMemo').value = event.memo || '';
+
+            const submitBtn = document.querySelector('.calendar-submit-btn');
+            const formTitle = document.getElementById('eventFormTitle');
+
+            submitBtn.textContent = '일정 수정 완료';
+            if (formTitle) formTitle.textContent = '일정 수정';
+
+            renderCalendar();
+            renderSelectedDateEvents();
+            renderAllEvents();
+        }
+
+        eventForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            if (!selectedDate) {
+                alert('먼저 달력에서 날짜를 선택해주세요.');
+                return;
+            }
+
+            const title = document.getElementById('eventTitle').value.trim();
+            const time = document.getElementById('eventTime').value;
+            const member = document.getElementById('eventMember').value;
+            const memo = document.getElementById('eventMemo').value.trim();
+            const eventTypeSelect = document.getElementById('eventType');
+
+            if (!title) {
+                alert('일정 제목을 입력해주세요.');
+                return;
+            }
+
+            const eventData = {
+                title,
+                date: selectedDate,
+                time,
+                member,
+                memo,
+                type: eventTypeSelect ? eventTypeSelect.value : 'meeting'
+            };
+
+            try {
+                const url = editingEventId ? `/api/events/${editingEventId}` : '/api/events';
+                const method = editingEventId ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(eventData)
+                });
+
+                if (!response.ok) {
+                    alert(editingEventId ? '일정 수정에 실패했습니다.' : '일정 등록에 실패했습니다.');
+                    return;
+                }
+
+                eventForm.reset();
+                editingEventId = null;
+
+                document.querySelector('.calendar-submit-btn').textContent = '선택한 날짜에 일정 등록';
+
+                const formTitle = document.getElementById('eventFormTitle');
+                if (formTitle) formTitle.textContent = '일정 추가';
+
+                await loadEvents();
+            } catch (error) {
+                console.error('일정 저장 실패:', error);
+            }
+        });
+
+        async function deleteEvent(eventId) {
+            if (!confirm('이 일정을 삭제하시겠습니까?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/events/${eventId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    alert('일정 삭제에 실패했습니다.');
+                    return;
+                }
+
+                if (editingEventId === eventId) {
+                    editingEventId = null;
+                    eventForm.reset();
+                    document.querySelector('.calendar-submit-btn').textContent = '선택한 날짜에 일정 등록';
+
+                    const formTitle = document.getElementById('eventFormTitle');
+                    if (formTitle) formTitle.textContent = '일정 추가';
+                }
+
+                await loadEvents();
+            } catch (error) {
+                console.error('일정 삭제 실패:', error);
+            }
+        }
+
+        prevMonthBtn.addEventListener('click', function () {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', function () {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        function getEventsByDate(dateString) {
+            return currentEvents.filter(event => event.date === dateString);
+        }
+
+        function compareEventsBySchedule(a, b) {
+            const today = parseYMD(formatDateToYMD(new Date())).getTime();
+            const dateA = parseYMD(a.date).getTime();
+            const dateB = parseYMD(b.date).getTime();
+            const aIsUpcoming = dateA >= today;
+            const bIsUpcoming = dateB >= today;
+
+            if (aIsUpcoming !== bIsUpcoming) {
+                return aIsUpcoming ? -1 : 1;
+            }
+
+            const timeA = getEventTimestamp(a);
+            const timeB = getEventTimestamp(b);
+            return aIsUpcoming ? timeA - timeB : timeB - timeA;
+        }
+
+        function getEventTimestamp(event) {
+            const [year, month, day] = event.date.split('-').map(Number);
+            const [hour = 0, minute = 0] = (event.time || '00:00').split(':').map(Number);
+            return new Date(year, month - 1, day, hour, minute).getTime();
+        }
+
+        function getDdayLabel(dateString) {
+            const targetDate = parseYMD(dateString);
+            const today = parseYMD(formatDateToYMD(new Date()));
+            const diffDays = Math.round((targetDate - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'D-Day';
+            if (diffDays > 0) return `D-${diffDays}`;
+            return `D+${Math.abs(diffDays)}`;
+        }
+
+        function parseYMD(dateString) {
+            const [year, month, day] = dateString.split('-').map(Number);
+            return new Date(year, month - 1, day);
+        }
+
+        function formatDateToYMD(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatKoreanDate(dateString) {
+            const date = new Date(dateString);
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const dayName = days[date.getDay()];
+
+            return `${year}년 ${month}월 ${day}일 ${dayName}요일`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // [확인] 실시간 팀원 수를 세어오는 핵심 비동기 함수
+        async function loadMemberCount() {
+            try {
+                // 주소 뒤에 ?t=시간값을 붙여 브라우저가 옛날 데이터를 캐싱하지 못하게 강제합니다.
+                const timestamp = new Date().getTime();
+                const response = await fetch(`/api/member-count?t=${timestamp}`);
+                
+                if (!response.ok) {
+                    console.error('서버 응답 에러 상태:', response.status);
+                    return;
+                }
+                
+                const data = await response.json();
+                console.log('서버에서 받아온 총 팀원 수 데이터:', data); // 콘솔에서 확인용
+                
+                const countElement = document.getElementById('team-member-count');
+                if (countElement && data.count !== undefined) {
+                    countElement.textContent = data.count;
+                }
+            } catch (error) {
+                console.error('JS에서 팀원 수 데이터를 가져오는데 실패했습니다:', error);
+            }
+        }
+
+        // 페이지가 완전히 로드되면 실행부 작동
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEvents();       // 기존 캘린더 로드
+            loadMemberCount();  // 신규 팀원 수 로드
+        });
+    </script>
+</body>
+</html>

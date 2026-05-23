@@ -1,0 +1,168 @@
+/* 기본 배경 설정 */
+h1 {
+    font-family : sans-serif;
+    text-align : center;
+}
+
+body {
+    font-family: 'Pretendard', Arial, sans-serif; /* 부가적인 글꼴 설정 */
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* 부드러운 그라데이션 */
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+/* 입력 블록 */
+.person-block {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.7); /* 반투명 흰색 */
+    backdrop-filter: blur(10px); /* 뒤 배경 흐리게 (유리 효과) */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* 은은한 그림자 */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease; /* 마우스 올렸을 때 애니메이션이 부드럽게 나타나도록 */
+}
+
+.person-block:hover {
+    transform: translateY(-5px); /* 살짝 떠오르는 효과 */
+}
+/* person-block에 마우스가 올라가 있다면 이 효과를 transition 효과를 곁들여 실행 */
+
+/* 입력창(input) 스타일 */
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box; /* 패딩이 박스 크기를 벗어나지 않게 */
+}
+
+.email-container {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 8px;
+    margin-bottom: 15px;
+}
+/* 이메일 입력부를 세분화해서 이걸 하나의 컨테이너에 담아 flex로 가로 정렬해서 나타냄 */
+
+.at-sign {
+    font-weight: bold;
+    color: #667eea;
+    padding-top: 5px; /* 미세한 위치 조정 */
+}
+
+.email-id, .domain-input, .domain-select {
+    flex: 1;    /* 박스 크기에 맞게 나열되도록 함 */
+    margin: 0 !important; /* 기존 마진 제거 */
+}
+
+/* 기술 스택 칩 스타일 */
+.tech-grid {
+    display: flex;
+    flex-wrap: wrap; /* 일렬로 세우다 칸이 모자라면 다음 칸으로 넘어가도록 */
+    gap: 10px;
+}
+
+.tech-label {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+/* 체크박스 체크 시 바로 뒤에 오는 .tech-label을 선택해서 색을 바꾼다. */
+input[type="checkbox"]:checked + .tech-label {
+    background-color: var(--tech-color);
+    color: white;
+    border-color: var(--tech-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.tech-label:hover {
+    border-color: #667eea;
+}
+
+.btn-back {
+    background-color: #6c757d; /* 차분한 회색 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+/* 기존 버튼들과의 정렬을 위해 부모 컨테이너에 flex와 gap을 주는 것이 좋습니다 */
+
+/* 입력창 클릭(Focus) 시 효과 */
+input:focus, select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+    background-color: #fff;
+}
+
+/* 버튼 스타일링 */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    margin-right: 10px;
+}
+
+/* 추가 버튼 */
+button[onclick="addPerson()"] {
+    background-color: #667eea;
+    color: white;
+}
+
+button[onclick="addPerson()"]:hover {
+    background-color: #764ba2;
+}
+
+/* 제출 버튼 */
+button[type="submit"] {
+    background-color: #4facfe;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background-color: #00f2fe;
+}
+
+/* --- 다크모드 시 로고 글자색 변경 --- */
+
+/* 1. 기본 상태 로고 색상 (필요 시 수정) */
+.navbar .logo {
+    color: #333333;
+    transition: color 0.3s ease;
+}
+
+/* 2. 다크모드 활성화 시 로고 색상을 흰색으로 강제 변경 */
+body.dark-mode .navbar .logo {
+    color: #ffffff !important;
+}
+
+/* 3. (추가 팁) 다크모드 시 내비게이션 메뉴 아이콘과 글자도 흰색으로 */
+body.dark-mode .nav-menu a {
+    color: #ffffff !important;
+}

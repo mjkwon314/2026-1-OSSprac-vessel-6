@@ -1,0 +1,17 @@
+services:
+  frontapp:
+    build:
+      context: ./FrontEnd
+    image: kth978340/frontapp:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backapp
+
+  backapp:
+    build:
+      context: ./BackEnd
+    image: kth978340/backapp:latest
+    ports:
+      - "5001:5001"
+    command: flask --app main run --host=0.0.0.0 --port=5001

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>우리 팀 연락처</title>
+    <style>
+        /* 이미지와 동일한 디자인을 위한 CSS */
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 카드 기본 스타일 */
+        .result-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex; /* 가로 배치 */
+            overflow: hidden;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        /* 왼쪽 강조 바 */
+        .card-accent-bar {
+            width: 8px;
+            background-color: #3498db; /* 기본 파란색 */
+            flex-shrink: 0;
+        }
+
+        .leader-card .card-accent-bar {
+            background-color: #f1c40f; /* 팀장 노란색 */
+        }
+
+        .card-content {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .member-name, .leader-name {
+            margin: 0 0 15px 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .card-divider {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: 15px 0;
+        }
+
+        .card-content p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Role 텍스트 스타일 */
+        .description-text {
+            font-size: 15px;
+            color: #444;
+        }
+
+        /* 기술 태그 스타일 */
+        .tech-tags {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag-badge {
+            background-color: #eef2ff;
+            color: #5b7cff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="result-page">
+
+<div class="container">
+    <h1 class="main-title">연락정보 안내</h1>
+    
+    <!-- 1. 팀장 섹션 -->
+    <h2 class="section-title">⭐ Team Leader</h2>
+    <div class="result-card leader-card">
+        <div class="card-accent-bar"></div>
+        <div class="card-content">
+            <h2 class="leader-name">김태형</h2>
+            <hr class="card-divider">
+            <p>소속: 통계학과</p>
+            <p>연락처: 010-9995-1234</p>
+            <p>이메일: teahyung@gmail.com</p>
+            <p class="description-text"><strong>Role:</strong> result.html 담당, input에 입력한 정보를 출력하는 result 페이지를 구현하였음. 웹사이트를 구현하는 과정에서 팀원들이 업로드한 html 파일들을 수정하는 등 웹사이트를 최종적으로 검토하였음.</p>
+            
+            <div class="tech-tags">
+                <span class="tag-badge"># Python</span>
+                <span class="tag-badge"># Flask</span>
+                <span class="tag-badge"># R</span>
+                <span class="tag-badge"># GitHub</span>
+                <span class="tag-badge"># JAVA</span>
+                <span class="tag-badge"># SAS</span>
+                <span class="tag-badge"># Linux</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 팀원 섹션 -->
+    <h2 class="section-title">👥 Team Members</h2>
+    <div class="card-list">
+        
+        <!-- 권민재 -->
+        <div class="result-card">
+            <div class="card-accent-bar"></div>
+            <div class="card-content">
+                <h2 class="member-name">권민재</h2>
+                <hr class="card-divider">
+                <p>소속: 정보통신공학과</p>
+                <p>연락처: 010-6292-1234</p>
+                <p>이메일: minjae1234@gmail.com</p>
+                <p class="description-text"><strong>Role:</strong> input.html 담당, 이름,학과,학번,전화번호,이메일,기술스택 입력칸을 구현하였음. 기술스택 입력칸은 기타를 선택할 경우 텍스트 입력칸이 나타나도록 구현하였음. 또한 style.css, theme.js도 같이 구현하였음.</p>
+                <div class="tech-tags">
+                    <span class="tag-badge"># C++</span>
+                    <span class="tag-badge"># JAVA</span>
+                    <span class="tag-badge"># Linux</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 김종헌 -->
+        <div class="result-card">
+            <div class="card-accent-bar"></div>
+            <div class="card-content">
+                <h2 class="member-name">김종헌</h2>
+                <hr class="card-divider">
+                <p>소속: 정보통신공학과</p>
+                <p>연락처: 010-2657-9037</p>
+                <p>이메일: jongheon371@gmail.com</p>
+                <p class="description-text"><strong>Role:</strong> contact.html 담당, 팀원들의 정보를 보여주는 contact.html을 구현하였음. 이 과정에서 style.css, theme.js도 같이 구현하였음.</p>
+                <div class="tech-tags">
+                    <span class="tag-badge"># C++</span>
+                    <span class="tag-badge"># Python</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 이영민 -->
+        <div class="result-card">
+            <div class="card-accent-bar"></div>
+            <div class="card-content">
+                <h2 class="member-name">이영민</h2>
+                <hr class="card-divider">
+                <p>소속: 건축학과</p>
+                <p>연락처: 010-8838-0140</p>
+                <p>이메일: lymin0106@gmail.com</p>
+                <p class="description-text"><strong>Role:</strong> index.html 담당, 팀의 소개와 프로젝트의 개요를 담은 index.html을 구현하였음. AOS 라이브러리를 활용하여 애니메이션 효과를 추가하였고, 다크모드도 구현하였음. 또한 style.css, theme.js도 같이 구현하였음.</p>
+                <div class="tech-tags">
+                    <span class="tag-badge"># Python</span>
+                    <span class="tag-badge"># JAVA</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+</body>
+</html>
