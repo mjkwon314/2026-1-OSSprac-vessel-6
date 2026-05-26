@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    image: kth978340/ossp-teamweb:1.0
+    container_name: ossp-team-webcontainer
+    ports:
+      - "5000:5000"
+    restart: always
